@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "26342041-2a1a-4f8f-b7ea-808ff42f2ad6",
+		"name": "RTS Address MSV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22065047"
+	},
+	"item": [
+		{
+			"name": "Create address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"line1\": \"123 Main Street\",\r\n  \"line2\": \"Apt 4B\",\r\n  \"line3\": \"Building C\",\r\n  \"city\": \"Singapore\",\r\n  \"country\": \"Singapore\",\r\n  \"postalCode\": \"12345\",\r\n  \"type\": 44,\r\n  \"entityId\": 123,\r\n  \"entityType\": \"Person\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8300/addresses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8300",
+					"path": [
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get address by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8300/addresses/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8300",
+					"path": [
+						"addresses",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"line1\": \"Tampinese\",\r\n  \"line2\": \"Apt 4B\",\r\n  \"line3\": \"Building C\",\r\n  \"city\": \"New York\",\r\n  \"country\": \"USA\",\r\n  \"postalCode\": \"9999\",\r\n  \"type\": 44,\r\n  \"entityId\": 2,\r\n  \"entityType\": \"account\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8300/addresses/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8300",
+					"path": [
+						"addresses",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
