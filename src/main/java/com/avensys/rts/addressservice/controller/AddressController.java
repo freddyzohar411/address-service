@@ -50,7 +50,7 @@ public class AddressController {
      * @return HttpResponse
      */
     @GetMapping("/addresses/{addressId}")
-    public ResponseEntity<Object> getIndustryByName(@PathVariable int addressId) {
+    public ResponseEntity<Object> getAddressById(@PathVariable int addressId) {
         log.info("Get an address by id : Controller ");
         AddressResponseDTO address = addressService.getAddressById(addressId);
         return ResponseUtil.generateSuccessResponse(address, HttpStatus.OK, messageSource.getMessage(MessageConstants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
