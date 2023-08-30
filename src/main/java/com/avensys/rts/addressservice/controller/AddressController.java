@@ -63,9 +63,16 @@ public class AddressController {
      * @return HttpResponse
      */
     @PutMapping("/addresses/{addressId}")
-    public ResponseEntity<Object> updateIndustry(@PathVariable int addressId, @Valid @RequestBody AddressRequestDTO address) {
+    public ResponseEntity<Object> updateAddress(@PathVariable int addressId, @Valid @RequestBody AddressRequestDTO address) {
         log.info("Update an address by Id : Controller ");
         AddressResponseDTO updatedAddress = addressService.updateAddress(addressId, address);
         return ResponseUtil.generateSuccessResponse(updatedAddress, HttpStatus.OK, "Address updated successfully");
+    }
+
+    @DeleteMapping("/addresses/{addressId}")
+    public ResponseEntity<Object> deleteAddress(@PathVariable int addressId) {
+        log.info("Delete an address by Id : Controller ");
+        addressService.deleteAddress(addressId);
+        return ResponseUtil.generateSuccessResponse(null, HttpStatus.OK, "Address deleted successfully");
     }
 }

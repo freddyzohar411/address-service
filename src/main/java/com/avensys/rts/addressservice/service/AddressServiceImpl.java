@@ -71,6 +71,15 @@ public class AddressServiceImpl implements AddressService {
         return toAddressResponseDTO(addressUpdated);
     }
 
+    @Override
+    public void deleteAddress(int addressId) {
+        AddressEntity address = addressRepository.findById(addressId).orElseThrow(
+                () -> new EntityNotFoundException("Address with id " + addressId + " not found")
+        );
+        addressRepository.delete(address);
+        log.info("Address deleted : Service");
+    }
+
 
     /**
      * Internal method is used to convert AddressRequestDTO to AddressEntity

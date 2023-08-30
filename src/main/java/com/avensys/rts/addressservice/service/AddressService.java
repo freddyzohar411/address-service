@@ -31,4 +31,10 @@ public interface AddressService {
      * @return
      */
     AddressResponseDTO updateAddress(int addressId, AddressRequestDTO address);
+
+    /**
+     * This method is used to delete address by id
+     * @param addressId
+     */
+    void deleteAddress(int addressId);
 }
