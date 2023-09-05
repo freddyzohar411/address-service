@@ -1,8 +1,8 @@
 package com.avensys.rts.addressservice.service;
 
-import com.avensys.rts.addressservice.entity.AddressEntity;
-import com.avensys.rts.addressservice.payload.AddressRequestDTO;
-import com.avensys.rts.addressservice.payload.AddressResponseDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressRequestDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressUpdateRequestDTO;
+import com.avensys.rts.addressservice.payloadresponse.AddressResponseDTO;
 
 /**
  * @author Koh He Xiang
@@ -13,24 +13,24 @@ public interface AddressService {
     /**
      * This method is used to create a new address
      * @param address
-     * @return
+     * @return AddressResponseDTO
      */
     AddressResponseDTO createAddress(AddressRequestDTO address);
 
     /**
      * This method is used to get address by id
      * @param addressId
-     * @return
+     * @return AddressResponseDTO
      */
     AddressResponseDTO getAddressById(int addressId);
 
     /**
      * This method is used to update address by id
      * @param addressId
-     * @param address
-     * @return
+     * @param addressRequest
+     * @return AddressResponseDTO
      */
-    AddressResponseDTO updateAddress(int addressId, AddressRequestDTO address);
+    AddressResponseDTO updateAddress(int addressId, AddressUpdateRequestDTO addressRequest);
 
     /**
      * This method is used to delete address by id

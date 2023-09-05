@@ -1,4 +1,4 @@
-package com.avensys.rts.addressservice.payload;
+package com.avensys.rts.addressservice.payloadresponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -32,7 +32,7 @@ public class AddressEntity {
     @Column(name = "city", length = 20 )
     private String city;
 
-    @Column(name = "country", length = 10 )
+    @Column(name = "country", length = 20 ) //CHANGE
     private String country;
 
     @Column(name = "postal_code", length = 20 )

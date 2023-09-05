@@ -1,9 +1,9 @@
 package com.avensys.rts.addressservice.service;
 
-import com.avensys.rts.addressservice.controller.AddressController;
 import com.avensys.rts.addressservice.entity.AddressEntity;
-import com.avensys.rts.addressservice.payload.AddressRequestDTO;
-import com.avensys.rts.addressservice.payload.AddressResponseDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressRequestDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressUpdateRequestDTO;
+import com.avensys.rts.addressservice.payloadresponse.AddressResponseDTO;
 import com.avensys.rts.addressservice.repository.AddressRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -37,13 +37,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     /**
-     * @param id
-     * @return AddressEntity
+     * @param addressId
+     * @return AddressResponseDTO
      */
     @Override
-    public AddressResponseDTO getAddressById(int id) {
-        AddressEntity address = addressRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Address with id " + id + " not found")
+    public AddressResponseDTO getAddressById(int addressId) {
+        AddressEntity address = addressRepository.findById(addressId).orElseThrow(
+                () -> new EntityNotFoundException("Address with id " + addressId + " not found")
         );
         log.info("Address retrieved : Service");
         return toAddressResponseDTO(address);
@@ -52,25 +52,24 @@ public class AddressServiceImpl implements AddressService {
     /**
      * This method is used to update address by id
      * @param addressId
-     * @param address
-     * @return
+     * @param addressRequest
+     * @return AddressResponseDTO
      */
     @Override
-    public AddressResponseDTO updateAddress(int addressId, AddressRequestDTO address) {
+    public AddressResponseDTO updateAddress(int addressId, AddressUpdateRequestDTO addressRequest) {
         AddressEntity addressUpdate = addressRepository.findById(addressId).orElseThrow(
                 () -> new EntityNotFoundException("Address with id " + addressId + " not found")
         );
-        addressUpdate.setLine1(address.getLine1());
-        addressUpdate.setLine2(address.getLine2());
-        addressUpdate.setLine3(address.getLine3());
-        addressUpdate.setCity(address.getCity());
-        addressUpdate.setCountry(address.getCountry());
-        addressUpdate.setPostalCode(address.getPostalCode());
+        updateAddressEntity(addressUpdate, addressRequest);
         AddressEntity addressUpdated = addressRepository.save(addressUpdate);
         log.info("Address updated : Service");
         return toAddressResponseDTO(addressUpdated);
     }
 
+    /**
+     * This method is used to delete address by id
+     * @param addressId
+     */
     @Override
     public void deleteAddress(int addressId) {
         AddressEntity address = addressRepository.findById(addressId).orElseThrow(
@@ -78,6 +77,22 @@ public class AddressServiceImpl implements AddressService {
         );
         addressRepository.delete(address);
         log.info("Address deleted : Service");
+    }
+
+    /**
+     * Internal method is used to update AddressEntity
+     * @param addressEntityUpdate
+     * @param addressRequest
+     * @return
+     */
+    private AddressEntity updateAddressEntity(AddressEntity addressEntityUpdate, AddressUpdateRequestDTO addressRequest) {
+        addressEntityUpdate.setLine1(addressRequest.getLine1());
+        addressEntityUpdate.setLine2(addressRequest.getLine2());
+        addressEntityUpdate.setLine3(addressRequest.getLine3());
+        addressEntityUpdate.setCity(addressRequest.getCity());
+        addressEntityUpdate.setCountry(addressRequest.getCountry());
+        addressEntityUpdate.setPostalCode(addressRequest.getPostalCode());
+        return addressEntityUpdate;
     }
 
 
@@ -105,7 +120,7 @@ public class AddressServiceImpl implements AddressService {
      * @param addressEntity
      * @return
      */
-    private AddressResponseDTO toAddressResponseDTO (AddressEntity addressEntity){
+    private AddressResponseDTO toAddressResponseDTO(AddressEntity addressEntity) {
         AddressResponseDTO addressResponseDTO = new AddressResponseDTO();
         addressResponseDTO.setId(addressEntity.getId());
         addressResponseDTO.setLine1(addressEntity.getLine1());

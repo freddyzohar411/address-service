@@ -1,16 +1,14 @@
 package com.avensys.rts.addressservice.controller;
 
 import com.avensys.rts.addressservice.constant.MessageConstants;
-import com.avensys.rts.addressservice.entity.AddressEntity;
-import com.avensys.rts.addressservice.payload.AddressRequestDTO;
-import com.avensys.rts.addressservice.payload.AddressResponseDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressRequestDTO;
+import com.avensys.rts.addressservice.payloadrequest.AddressUpdateRequestDTO;
+import com.avensys.rts.addressservice.payloadresponse.AddressResponseDTO;
 import com.avensys.rts.addressservice.service.AddressServiceImpl;
 import com.avensys.rts.addressservice.util.ResponseUtil;
-import feign.Response;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class AddressController {
-
     private final Logger log = LoggerFactory.getLogger(AddressController.class);
     private final AddressServiceImpl addressService;
     private final MessageSource messageSource;
@@ -34,6 +31,7 @@ public class AddressController {
     }
 
     /**
+     * Create an address
      * @param addressRequest
      * @return HttpResponse
      */
@@ -45,7 +43,7 @@ public class AddressController {
     }
 
     /**
-     * Get industry by  path variable
+     * Get address by Id
      * @param addressId
      * @return HttpResponse
      */
@@ -57,18 +55,23 @@ public class AddressController {
     }
 
     /**
-     * Update industry by path variable
+     * Update address by Id
      * @param addressId
      * @param address
      * @return HttpResponse
      */
     @PutMapping("/addresses/{addressId}")
-    public ResponseEntity<Object> updateAddress(@PathVariable int addressId, @Valid @RequestBody AddressRequestDTO address) {
+    public ResponseEntity<Object> updateAddress(@PathVariable int addressId, @Valid @RequestBody AddressUpdateRequestDTO address) {
         log.info("Update an address by Id : Controller ");
         AddressResponseDTO updatedAddress = addressService.updateAddress(addressId, address);
         return ResponseUtil.generateSuccessResponse(updatedAddress, HttpStatus.OK, "Address updated successfully");
     }
 
+    /**
+     * Delete address by Id
+     * @param addressId
+     * @return
+     */
     @DeleteMapping("/addresses/{addressId}")
     public ResponseEntity<Object> deleteAddress(@PathVariable int addressId) {
         log.info("Delete an address by Id : Controller ");
